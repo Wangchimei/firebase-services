@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="main.css">
+  <title>Firestore</title>
+</head>
+
+<body>
+  <div class="container">
+    <h4>Firestore Test</h4>
+    <form id="addTodoForm">
+      <div class="row">
+        <div class="col s6">
+          <input name="todo" type="text" placeholder="ADD TODO">
+          <label for="todo"></label>
+        </div>
+        <div class="col s4">
+          <select name="type">
+            <option value="" disabled selected>Choose type</option>
+            <option value="programming">Programming</option>
+            <option value="errand">Errands</option>
+            <option value="hobbies">Hobbies</option>
+          </select>
+        </div>
+        <div class="col s2">
+          <button type="submit" class="btn">Add</button>
+        </div>
+      </div>
+    </form>
+    <ul id="todo-list" class="collection"></ul>
+  </div>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDLwki1TCtIAIbCHVRMEfHDlJFHfm-k0Js",
+      authDomain: "todo-dd5a1.firebaseapp.com",
+      databaseURL: "https://todo-dd5a1.firebaseio.com",
+      projectId: "todo-dd5a1",
+      storageBucket: "todo-dd5a1.appspot.com",
+      messagingSenderId: "515336151853",
+      appId: "1:515336151853:web:bfd69a1862ffdf2dd1e9a4"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <script>
+  </script>
+  <script src="main.js"></script>
+  <script src="firestore.js"></script>
+</body>
+
+</html>

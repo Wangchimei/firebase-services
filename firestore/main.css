@@ -1,0 +1,29 @@
+.collection .collection-item {
+  min-height: 30px;
+  position: relative;
+}
+
+.collection .collection-item .title {
+  color: teal;
+  font-size: 16px;
+}
+
+.collection {
+  text-transform: capitalize;
+}
+
+.cross {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.cross::before {
+  content: "x";
+}
+
+p {
+  margin: 0;
+}
