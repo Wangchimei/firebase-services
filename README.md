@@ -66,12 +66,14 @@ db.collection("users").add({
 ```
 
 ### Update data
-#### Update partial data
+#### Update certain properties
 ```js
 db.collection('users').doc(id).update({
   age: 30,
 })
 ```
+Only age will be updated.
+
 #### Overwrite the whole document
 ```js
 db.collection('users').doc(id).set({
