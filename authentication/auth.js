@@ -2,17 +2,23 @@ const signupForm = document.querySelector("#signup-form");
 const loginForm = document.querySelector("#login-form");
 const signout = document.querySelector("#logout");
 
+const dbRef = db.collection("notes")
+
 // LISTEN TO AUTH STATUS CHANGES
 auth.onAuthStateChanged(user => {
   // console.log(user)
-  const loggedInNavs = document.querySelectorAll(".logged-in");
-  const loggedOutNavs = document.querySelectorAll(".logged-out");
+
   if (user) {
-    loggedOutNavs.forEach(item => item.classList.add('hide'));
-    loggedInNavs.forEach(item => item.classList.remove('hide'));
+    // set navbar
+    setLinks(user);
+    // load notes
+    dbRef.where("author", "==", user.uid)
+      .get()
+      .then((snapshot) => outputNotes(snapshot.docs))
   } else {
-    loggedOutNavs.forEach(item => item.classList.remove('hide'));
-    loggedInNavs.forEach(item => item.classList.add('hide'));
+    // set navbar
+    setLinks(user);
+    outputNotes([]) // passing an empty array
   }
 })
 

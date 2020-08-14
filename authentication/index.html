@@ -18,19 +18,19 @@
       <div class="container">
         <a href="#!" class="brand-logo">ProNote</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#modal-create" class="modal-trigger">Create</a>
           </li>
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#modal-account" class="modal-trigger">Account</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out hide">
             <a href="#modal-signup" class="modal-trigger">Sign up</a>
           </li>
-          <li class="logged-out">
+          <li class="logged-out hide">
             <a href="#modal-login" class="modal-trigger">Log in</a>
           </li>
-          <li class="logged-in">
+          <li class="logged-in hide">
             <a href="#" id="logout">Log out</a>
           </li>
         </ul>
@@ -103,12 +103,7 @@
   </div>
 
   <div class="container my-3">
-    <ul class="collapsible z-depth-0 posts">
-      <li>
-        <div class="collapsible-header indigo-text text-lighten-1">First</div>
-        <div class="collapsible-body white"><span>Lorem ipsum dolor sit amet.</span></div>
-      </li>
-    </ul>
+    <div class="notes"></div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
