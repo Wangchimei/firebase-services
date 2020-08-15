@@ -163,41 +163,42 @@ You can break down basic rules `read` and `write` into more granular operations.
 
 #### Conditions
 
-##### Authentication
+- Authentication
 
-```node
-match /users/{userId} {
-  allow read, update, delete: if request.auth != null && request.auth.uid == userId;
-  allow create: if request.auth != null;
-}
-```
+  ```node
+  match /users/{userId} {
+    allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+    allow create: if request.auth != null;
+  }
+  ```
 
-##### Data validation
+- Data validation
 
-```node
-match /posts/{post} {
-  allow read: if resource.data.visibility == 'public';
-}
-```
+  ```node
+  match /posts/{post} {
+    allow read: if resource.data.visibility == 'public';
+  }
+  ```
 
-Only allow update if age is over 18 and name is unchanged.
+  Only allow update if age is over 18 and name is unchanged.
 
-```node
-match /posts/{post} {
-  allow update: if request.resource.data.age > 18
-                && request.resource.data.name == resource.data.name;
-}
-```
+  ```node
+  match /posts/{post} {
+    allow update: if request.resource.data.age > 18
+                  && request.resource.data.name == resource.data.name;
+  }
+  ```
 
 ## Firebase Authentication
 
-- [Sign up](https://github.com/Wangchimei/firebase_services#sign-up)
-- [Login / Logout](https://github.com/Wangchimei/firebase_services#)
+- [Basic Auth](https://github.com/Wangchimei/firebase_services#basic-auth)
 - [Tracking Auth Status](https://github.com/Wangchimei/firebase_services#tracking-auth-status)
 - [Custom Claims](https://github.com/Wangchimei/firebase_services#custom-claims)
 - [User Data](https://github.com/Wangchimei/firebase_services#user-data)
 
-### Sign up
+### Basic Auth
+
+#### Sign up
 
 ```js
 firebase
@@ -206,8 +207,6 @@ firebase
   .then((cred) => console.log(cred.user))
   .catch((err) => console.log(err.message));
 ```
-
-### Login / Logout
 
 #### Login
 
@@ -245,30 +244,30 @@ Using custom claims is able add special properties to a user (e.g. admin, premiu
 
 1. To keep the functions secure, use Firebase Functions to run on server.
 
-```js
-const admin = require('firebase-admin');
-admin.initializeApp();
+   ```js
+   const admin = require('firebase-admin');
+   admin.initializeApp();
 
-exports.setAdmin = functions.https.onCall((data, context) => {
-  if (context.auth.token.admin !== true) {
-    return { error: 'Unauthorized!' };
-  }
-  return admin
-    .auth()
-    .getUserByEmail(data.email)
-    .then((user) => {
-      return admin.auth().setCustomUserClaims(user.uid, {
-        admin: true
-      });
-    })
-    .then(() => {
-      return { message: 'Success!' };
-    })
-    .catch((err) => {
-      return err;
-    });
-});
-```
+   exports.setAdmin = functions.https.onCall((data, context) => {
+     if (context.auth.token.admin !== true) {
+       return { error: 'Unauthorized!' };
+     }
+     return admin
+       .auth()
+       .getUserByEmail(data.email)
+       .then((user) => {
+         return admin.auth().setCustomUserClaims(user.uid, {
+           admin: true
+         });
+       })
+       .then(() => {
+         return { message: 'Success!' };
+       })
+       .catch((err) => {
+         return err;
+       });
+   });
+   ```
 
 2. Reference the function on front-end and make request
    ```js
@@ -293,27 +292,27 @@ exports.setAdmin = functions.https.onCall((data, context) => {
 
 #### Get current user
 
-##### Set up an observer (recommended)
+- Set up an observer (recommended)
 
-```js
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in.
-  } else {
-    // No user is signed in.
-  }
-});
-```
+  ```js
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in.
+    } else {
+      // No user is signed in.
+    }
+  });
+  ```
 
-##### Use `currentUser` property
+- Use `currentUser` property
 
-```js
-var user = firebase.auth().currentUser;
-```
+  ```js
+  var user = firebase.auth().currentUser;
+  ```
 
-If a user isn't signed in, `currentUser` is null.
+  If a user isn't signed in, `currentUser` is null.
 
-##### Get user's properties
+#### Get user's properties
 
 Once the user is retrieved, the following properties are accessible.
 
@@ -331,51 +330,50 @@ if (user) {
 }
 ```
 
-##### Update user's properties
+#### Update user's properties
 
-###### Profile (name and photoURL)
+- Profile (name and photoURL)
 
-```js
-var user = firebase.auth().currentUser;
+  ```js
+  var user = firebase.auth().currentUser;
 
-user
-  .updateProfile({
-    displayName: 'Someone',
-    photoURL: 'https://somelink.jpg'
-  })
-  .then(() => {
-    console.log('updated');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-```
+  user
+    .updateProfile({
+      displayName: 'Someone',
+      photoURL: 'https://somelink.jpg'
+    })
+    .then(() => {
+      console.log('updated');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  ```
 
-###### Email
+- Email
 
-```js
-user
-  .updateEmail('other_email@example.com')
-  .then(() => {
-    // Update successful.
-  })
-  .catch((err) => {
-    // An error happened.
-  });
-```
+  ```js
+  user
+    .updateEmail('other_email@example.com')
+    .then(() => {
+      // Update successful.
+    })
+    .catch((err) => {
+      // An error happened.
+    });
+  ```
 
-###### Password
-
-```js
-user
-  .updatePassword(newPassword)
-  .then(() => {
-    // Update successful.
-  })
-  .catch((err) => {
-    // An error happened.
-  });
-```
+- Password
+  ```js
+  user
+    .updatePassword(newPassword)
+    .then(() => {
+      // Update successful.
+    })
+    .catch((err) => {
+      // An error happened.
+    });
+  ```
 
 ## Firebase Functions
 
