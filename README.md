@@ -1,19 +1,49 @@
 # Exploring Firebase Services
 
+This repo contains notes for [Firebase Firestore](https://github.com/Wangchimei/firebase_services#firebase-firestore), [Firebase Authentication](https://github.com/Wangchimei/firebase_services#firebase-authentication), and [Firebase Functions](https://github.com/Wangchimei/firebase_services#firebase-functions).
+
 ## Firebase Firestore
 
-### Read data
+- [CRUD](https://github.com/Wangchimei/firebase_services#crud)
+- [Query Data](https://github.com/Wangchimei/firebase_services#query-data)
+- [Security Rules](https://github.com/Wangchimei/firebase_services#security-rules)
 
-#### Read data once
+### CRUD
+
+#### Add data
 
 ```js
-firebase.firestore().collection('collectionName').get().then(snapshot => {
-  snapshot.forEach(doc => {
-    console.log(`${doc.id}: ${doc.data()}`);
+firebase
+  .firestore()
+  .collection('users')
+  .add({
+    name: 'Someone',
+    age: 35,
+    privacy: true
+  })
+  .then((doc) => {
+    console.log(doc.id);
+  })
+  .catch((err) => {
+    console.error(err);
   });
 ```
 
-#### Realtime update
+#### Read data
+
+##### Read data once
+
+```js
+firebase.firestore()
+  .collection('collectionName')
+  .get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+      console.log(`${doc.id}: ${doc.data()}`);
+    });
+```
+
+##### Realtime update
 
 ```js
 firebase
@@ -36,6 +66,34 @@ firebase
     },
     (error) => console.log(error.message)
   );
+```
+
+#### Update data
+
+##### Update certain properties
+
+```js
+firebase.firestore().collection('users').doc(id).update({
+  age: 30
+});
+```
+
+Only `age` will be updated.
+
+##### Overwrite the whole document
+
+```js
+firebase.firestore().collection('users').doc(id).set({
+  age: 30
+});
+```
+
+After updating, `name` and `privacy` will be empty.
+
+#### Delete data
+
+```js
+firebase.firestore().collection('users').doc(id).delete();
 ```
 
 ### Query data
@@ -62,53 +120,6 @@ firebase
   ```js
   firebase.firestore().collection('users').orderBy('name', 'desc').limit(5);
   ```
-
-### Add data
-
-```js
-firebase
-  .firestore()
-  .collection('users')
-  .add({
-    name: 'Someone',
-    age: 35,
-    privacy: true
-  })
-  .then((doc) => {
-    console.log(doc.id);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-```
-
-### Update data
-
-#### Update certain properties
-
-```js
-firebase.firestore().collection('users').doc(id).update({
-  age: 30
-});
-```
-
-Only `age` will be updated.
-
-#### Overwrite the whole document
-
-```js
-firebase.firestore().collection('users').doc(id).set({
-  age: 30
-});
-```
-
-After updating, `name` and `privacy` will be empty.
-
-### Delete data
-
-```js
-firebase.firestore().collection('users').doc(id).delete();
-```
 
 ### Security Rules
 
@@ -180,6 +191,12 @@ match /posts/{post} {
 
 ## Firebase Authentication
 
+- [Sign up](https://github.com/Wangchimei/firebase_services#sign-up)
+- [Login / Logout](https://github.com/Wangchimei/firebase_services#)
+- [Tracking Auth Status](https://github.com/Wangchimei/firebase_services#tracking-auth-status)
+- [Custom Claims](https://github.com/Wangchimei/firebase_services#custom-claims)
+- [User Data](https://github.com/Wangchimei/firebase_services#user-data)
+
 ### Sign up
 
 ```js
@@ -190,7 +207,9 @@ firebase
   .catch((err) => console.log(err.message));
 ```
 
-### Sign in
+### Login / Logout
+
+#### Login
 
 ```js
 firebase
@@ -200,7 +219,13 @@ firebase
   .catch((err) => console.log(err.message));
 ```
 
-### Tracking Auth Status (Listener)
+#### Logout
+
+```js
+firebase.auth().signOut();
+```
+
+### Tracking Auth Status
 
 ```js
 firebase.auth().onAuthStateChanged((user) => {
@@ -288,7 +313,7 @@ var user = firebase.auth().currentUser;
 
 If a user isn't signed in, `currentUser` is null.
 
-#### User's profile
+##### Get user's properties
 
 Once the user is retrieved, the following properties are accessible.
 
@@ -306,9 +331,9 @@ if (user) {
 }
 ```
 
-### Update User
+##### Update user's properties
 
-#### Profile (name and photoURL)
+###### Profile (name and photoURL)
 
 ```js
 var user = firebase.auth().currentUser;
@@ -326,7 +351,7 @@ user
   });
 ```
 
-#### Email
+###### Email
 
 ```js
 user
@@ -339,27 +364,13 @@ user
   });
 ```
 
-#### Password
+###### Password
 
 ```js
 user
   .updatePassword(newPassword)
   .then(() => {
     // Update successful.
-  })
-  .catch((err) => {
-    // An error happened.
-  });
-```
-
-### Sign out
-
-```js
-firebase
-  .auth()
-  .signOut()
-  .then(() => {
-    // Sign-out successful.
   })
   .catch((err) => {
     // An error happened.
