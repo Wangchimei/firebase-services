@@ -11,20 +11,23 @@
   ```
 #### Realtime update
   ```js
-  firebase.firestore().collection('users').onSnapshot(snapshot => {
-    let changes = snapshot.docChanges();
-    changes.forEach(change => {
-      if (change.type === "added") {
-        console.log("New user: ", change.doc.data());
-      }
-      if (change.type === "modified") {
-        console.log("Updated user: ", change.doc.data());
-      }
-      if (change.type === "removed") {
-        console.log("Removed user: ", change.doc.data());
-      }
-    });
-  })
+  firebase.firestore().collection('users').onSnapshot(
+    (snapshot) => {
+      let changes = snapshot.docChanges();
+      changes.forEach(change => {
+        if (change.type === "added") {
+          console.log("New user: ", change.doc.data());
+        }
+        if (change.type === "modified") {
+          console.log("Updated user: ", change.doc.data());
+        }
+        if (change.type === "removed") {
+          console.log("Removed user: ", change.doc.data());
+        }
+      });
+    },
+    (error) => console.log(error.message)
+  )
   ```
 
 ### Query data

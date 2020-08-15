@@ -1,7 +1,12 @@
 // UI for notes
 const noteList = document.querySelector('.notes');
-const outputNotes = (data) => {
-  if (data.length) {
+const loggedInLinks = document.querySelectorAll(".logged-in");
+const loggedOutLinks = document.querySelectorAll(".logged-out");
+const accountDetails = document.querySelector('.account-details');
+
+// UI: Load and output notes
+const outputNotes = (user, data) => {
+  if (user && !!data.length) {
     let html = '';
     data.forEach(doc => {
       const note = doc.data();
@@ -20,6 +25,12 @@ const outputNotes = (data) => {
 
     noteList.innerHTML = ''; // clear
     noteList.appendChild(ul).innerHTML = html;
+  } else if (user) {
+    noteList.innerHTML = `
+    <div class="card-panel">
+      <h6 class="center">No notes written by you.</h6>
+    </div>
+    `
   } else {
     noteList.innerHTML = `
     <div class="card-panel">
@@ -30,17 +41,38 @@ const outputNotes = (data) => {
 }
 
 // UI: Nav Links
-const loggedInLinks = document.querySelectorAll(".logged-in");
-const loggedOutLinks = document.querySelectorAll(".logged-out");
-
-const setLinks = (user) => {
+const updateUI = (user) => {
   if (user) {
+    // Nav links
     loggedInLinks.forEach(item => item.classList.remove('hide'));
     loggedOutLinks.forEach(item => item.classList.add('hide'));
+    // Account Info
+    setAccountInfo(user)
   } else {
+    // Nav links
     loggedInLinks.forEach(item => item.classList.add('hide'));
     loggedOutLinks.forEach(item => item.classList.remove('hide'));
+    // Account Info
+    accountDetails.innerHTML = '';
   }
+}
+
+// UI: Set user info
+const setAccountInfo = (user) => {
+  db.collection('users').doc(user.uid).get()
+    .then((snapshot) => {
+      let html = `
+      <h6 class="center">Logged in as ${snapshot.data().name}</h6>
+      <h6 class="center">${user.email}</h6>
+      <h6 class="center">${snapshot.data().bio}</h6>
+      <h6 class="center">Joined from ${user.metadata.creationTime}</h6>
+    `
+      accountDetails.innerHTML = html
+    }).catch(err =>
+      accountDetails.innerHTML = `
+        <h5 class="center"> ERROR! <h5>
+      `
+    )
 }
 
 document.addEventListener('DOMContentLoaded', function () {

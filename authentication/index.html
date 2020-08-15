@@ -43,12 +43,20 @@
       <h4 class="center indigo-text text-lighten-1">Sign up</h4>
       <form id="signup-form">
         <div class="input-field">
+          <input type="text" name="name" id="signup-name" required>
+          <label for="signup-name">Nickname</label>
+        </div>
+        <div class="input-field">
           <input type="email" name="email" id="signup-email" required>
           <label for="signup-email">Email</label>
         </div>
         <div class="input-field">
           <input type="password" name="password" id="signup-password" required>
           <label for="signup-password">Password</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="bio" id="signup-bio" required>
+          <label for="signup-bio">One line about you</label>
         </div>
         <div class="center">
           <button class="btn indigo lighten-2 z-depth-0">Submit</button>
