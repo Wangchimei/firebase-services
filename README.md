@@ -31,11 +31,8 @@
   ```
 
 ### Query data
-- Filter using `where`, with 3 params (`value of field`, `comparison operation`, `what value we want)`)
+- Filter using `where`, with 3 params (`value of field`, `comparison operation`, `what value we want)`)  
   The comparison can be `<`, `<=`, `==`, `>`, `>=`, `array-contains`, `in`, or `array-contains-any`
-  ```js
-  firebase.firestore().collection('users').where("privacy", "==", true)
-  ```
   ```js
   firebase.firestore().collection('users')
     .where("pet", "==", "dogs")
@@ -50,7 +47,9 @@
 - Order using `orderBy`
 - Limit using `limit`
   ```js
-    firebase.firestore().collection('users').orderBy("name", "desc").limit(5)
+  firebase.firestore().collection('users')
+    .orderBy("name", "desc")
+    .limit(5)
   ```
 
 ### Add data
@@ -59,31 +58,33 @@ firebase.firestore().collection("users").add({
     name: "Someone",
     age: 35,
     privacy: true
-})
-.then( doc => {
-    console.log(doc.id);
-})
-.catch( err => {
-    console.error(err);
-});
+  })
+  .then( doc => {
+      console.log(doc.id);
+  })
+  .catch( err => {
+      console.error(err);
+  });
 ```
 
 ### Update data
 #### Update certain properties
 ```js
-firebase.firestore().collection('users').doc(id).update({
-  age: 30,
-})
+firebase.firestore().collection('users').doc(id)
+  .update({
+    age: 30,
+  })
 ```
-Only age will be updated.
+Only `age` will be updated.
 
 #### Overwrite the whole document
 ```js
-firebase.firestore().collection('users').doc(id).set({
-  age: 30,
-})
+firebase.firestore().collection('users').doc(id)
+  .set({
+    age: 30,
+  })
 ```
-After updating, `name` and `privacy` will be empty
+After updating, `name` and `privacy` will be empty.
 
 ### Delete data
 ```js
@@ -100,6 +101,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
 ### Sign in
 ```js
 firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(cred => console.log(cred.user))
+  .catch(err => console.log(err.message))
 ```
 
 ### Tracking Auth Status (Listener)
@@ -112,6 +115,50 @@ firebase.auth().onAuthStateChanged(user => {
   }
 });
 ```
+### Custom Claims
+Using custom claims is able add special properties to a user (e.g. admin, premium), other than basic properties, which will be included in user token.
+
+#### Examples
+1. To keep the functions secure, use Firebase Functions to run on server.
+  ```js
+  const admin = require('firebase-admin');
+  admin.initializeApp();
+
+  exports.setAdmin = functions.https.onCall((data, context) => {
+    if (context.auth.token.admin !== true) {
+      return { error: "Unauthorized!" }
+    }
+    return admin.auth()
+      .getUserByEmail(data.email)
+      .then(user => {
+        return admin.auth()
+          .setCustomUserClaims(user.uid, {
+            admin: true
+          })
+      }).then(() => {
+        return { message: "Success!" }
+      }).catch(err => { return err; })
+    })
+   ```
+2. Reference the function on front-end and make request
+   ```js
+    const setAdmin = firebase.functions().httpsCallable('setAdmin');
+    setAdmin({ email: "some@email.com"})
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+   ```
+3. Detect the custom claims from the front-end.
+   ```js
+   user.getIdTokenResult()
+    .then(token => {
+      console.log(token.claims)
+    })
+   ```
+   The user token will contain `admin: true`.
+4. Update Firestore rules with custom claims
+   ```js
+    allow write: if request.auth.token.admin == true;
+   ```
 ### User data
 #### Get current user
 ##### Set up an observer (recommended)
