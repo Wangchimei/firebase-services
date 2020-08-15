@@ -1,173 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="main.css" />
+    <title>Authentication</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link rel="stylesheet" href="main.css">
-  <title>Authentication</title>
-</head>
-
-<body class="grey lighten-5">
-  <nav class="z-depth-0 indigo lighten-1">
-    <div class="nav-wrapper">
-      <div class="container">
-        <a href="#!" class="brand-logo">ProNote</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in hide">
-            <a href="#modal-create" class="modal-trigger">Create</a>
-          </li>
-          <li class="logged-in hide">
-            <a href="#modal-account" class="modal-trigger">Account</a>
-          </li>
-          <li class="admin hide">
-            <a href="#modal-admin" class="modal-trigger">All user</a>
-          </li>
-          <li class="logged-out hide">
-            <a href="#modal-signup" class="modal-trigger">Sign up</a>
-          </li>
-          <li class="logged-out hide">
-            <a href="#modal-login" class="modal-trigger">Log in</a>
-          </li>
-          <li class="logged-in hide">
-            <a href="#" id="logout">Log out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="center admin-action admin hide">
-    <dov class="container">
-      <div class="row">
-        <div class="col s6 push-s3">
-          <form id="add-admin-form">
-            <div class="input-field">
-              <input type="email" name="email" id="user-email" placeholder="User email" required>
-            </div>
-            <div class="center">
-              <button class="btn indigo lighten-2 z-depth-0">Make Admin</button>
-            </div>
-          </form>
+  <body class="grey lighten-5">
+    <nav class="z-depth-0 indigo lighten-1">
+      <div class="nav-wrapper">
+        <div class="container">
+          <a href="#!" class="brand-logo">ProNote</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="logged-in hide">
+              <a href="#modal-create" class="modal-trigger">Create</a>
+            </li>
+            <li class="logged-in hide">
+              <a href="#modal-account" class="modal-trigger">Account</a>
+            </li>
+            <li class="admin hide">
+              <a href="#modal-admin" class="modal-trigger">All user</a>
+            </li>
+            <li class="logged-out hide">
+              <a href="#modal-signup" class="modal-trigger">Sign up</a>
+            </li>
+            <li class="logged-out hide">
+              <a href="#modal-login" class="modal-trigger">Log in</a>
+            </li>
+            <li class="logged-in hide">
+              <a href="#" id="logout">Log out</a>
+            </li>
+          </ul>
         </div>
       </div>
-    </dov>
-  </div>
+    </nav>
 
-  <div id="modal-signup" class="modal">
-    <div class="modal-content">
-      <h4 class="center indigo-text text-lighten-1">Sign up</h4>
-      <form id="signup-form">
-        <div class="input-field">
-          <input type="text" name="name" id="signup-name" required>
-          <label for="signup-name">Nickname</label>
+    <div class="center admin-action admin hide">
+      <dov class="container">
+        <div class="row">
+          <div class="col s6 push-s3">
+            <form id="add-admin-form">
+              <div class="input-field">
+                <input
+                  type="email"
+                  name="email"
+                  id="user-email"
+                  placeholder="User email"
+                  required
+                />
+              </div>
+              <div class="center">
+                <button class="btn indigo lighten-2 z-depth-0">
+                  Make Admin
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="input-field">
-          <input type="email" name="email" id="signup-email" required>
-          <label for="signup-email">Email</label>
-        </div>
-        <div class="input-field">
-          <input type="password" name="password" id="signup-password" required>
-          <label for="signup-password">Password</label>
-        </div>
-        <div class="input-field">
-          <input type="text" name="bio" id="signup-bio" required>
-          <label for="signup-bio">One line about you</label>
-        </div>
-        <div class="center">
-          <button class="btn indigo lighten-2 z-depth-0">Submit</button>
-          <p class="red-text error"></p>
-        </div>
-      </form>
+      </dov>
     </div>
-  </div>
 
-  <div id="modal-login" class="modal">
-    <div class="modal-content">
-      <h4 class="center indigo-text text-lighten-1">Login</h4>
-      <form id="login-form">
-        <div class="input-field">
-          <input type="email" name="email" id="login-email" required>
-          <label for="login-email">Email</label>
-        </div>
-        <div class="input-field">
-          <input type="password" name="password" id="login-password" required>
-          <label for="login-password">Password</label>
-        </div>
-        <div class="center">
-          <button class="btn indigo lighten-2 z-depth-0">Submit</button>
-          <p class="red-text error"></p>
-        </div>
-      </form>
+    <div id="modal-signup" class="modal">
+      <div class="modal-content">
+        <h4 class="center indigo-text text-lighten-1">Sign up</h4>
+        <form id="signup-form">
+          <div class="input-field">
+            <input type="text" name="name" id="signup-name" required />
+            <label for="signup-name">Nickname</label>
+          </div>
+          <div class="input-field">
+            <input type="email" name="email" id="signup-email" required />
+            <label for="signup-email">Email</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              name="password"
+              id="signup-password"
+              required
+            />
+            <label for="signup-password">Password</label>
+          </div>
+          <div class="input-field">
+            <input type="text" name="bio" id="signup-bio" required />
+            <label for="signup-bio">One line about you</label>
+          </div>
+          <div class="center">
+            <button class="btn indigo lighten-2 z-depth-0">Submit</button>
+            <p class="red-text error"></p>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <div id="modal-account" class="modal">
-    <div class="modal-content">
-      <h4 class="center indigo-text text-lighten-1">Account Details</h4>
-      <div class="account-details"></div>
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4 class="center indigo-text text-lighten-1">Login</h4>
+        <form id="login-form">
+          <div class="input-field">
+            <input type="email" name="email" id="login-email" required />
+            <label for="login-email">Email</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              name="password"
+              id="login-password"
+              required
+            />
+            <label for="login-password">Password</label>
+          </div>
+          <div class="center">
+            <button class="btn indigo lighten-2 z-depth-0">Submit</button>
+            <p class="red-text error"></p>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <div id="modal-admin" class="modal">
-    <div class="modal-content">
-      <h4 class="center indigo-text text-lighten-1">All user</h4>
-      <div class="user-details"></div>
+    <div id="modal-account" class="modal">
+      <div class="modal-content">
+        <h4 class="center indigo-text text-lighten-1">Account Details</h4>
+        <div class="account-details"></div>
+      </div>
     </div>
-  </div>
 
-  <div id="modal-create" class="modal">
-    <div class="modal-content">
-      <h4 class="center indigo-text text-lighten-1">Create</h4>
-      <form id="create-form">
-        <div class="input-field">
-          <input type="text" name="title" id="title" required>
-          <label for="title">Title</label>
-        </div>
-        <div class="input-field">
-          <input type="text" name="body" id="body" required>
-          <label for="body">Add your thought</label>
-        </div>
-        <div class="center">
-          <button class="btn indigo lighten-2 z-depth-0">Submit</button>
-        </div>
-      </form>
+    <div id="modal-admin" class="modal">
+      <div class="modal-content">
+        <h4 class="center indigo-text text-lighten-1">All user</h4>
+        <div class="user-details"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="container my-3">
-    <div class="notes"></div>
-  </div>
+    <div id="modal-create" class="modal">
+      <div class="modal-content">
+        <h4 class="center indigo-text text-lighten-1">Create</h4>
+        <form id="create-form">
+          <div class="input-field">
+            <input type="text" name="title" id="title" required />
+            <label for="title">Title</label>
+          </div>
+          <div class="input-field">
+            <input type="text" name="body" id="body" required />
+            <label for="body">Add your thought</label>
+          </div>
+          <div class="center">
+            <button class="btn indigo lighten-2 z-depth-0">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-functions.js"></script>
+    <div class="container my-3">
+      <div class="notes"></div>
+    </div>
 
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyBh3-qWwmAtca3j908gOoXgThTu0-mWKLw",
-      authDomain: "pronote-cm.firebaseapp.com",
-      databaseURL: "https://pronote-cm.firebaseio.com",
-      projectId: "pronote-cm",
-      storageBucket: "pronote-cm.appspot.com",
-      messagingSenderId: "12111526315",
-      appId: "1:12111526315:web:417aba3dac29bdc598faee"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    // Reference to firestore and auth
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const functions = firebase.functions();
-  </script>
-  <script src="auth.js"></script>
-  <script src="main.js"></script>
-</body>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18.0/firebase-functions.js"></script>
 
+    <script src="config.js"></script>
+    <script>
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+      const functions = firebase.functions();
+    </script>
+    <script src="auth.js"></script>
+    <script src="main.js"></script>
+  </body>
 </html>
