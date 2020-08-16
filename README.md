@@ -377,4 +377,47 @@ if (user) {
 
 ## Firebase Functions
 
-To be updated...
+### HTTP Functions (HTTP Triggers)
+
+#### Endpoint Request
+
+Functions will be fired when a certain endpoint (url) is being called.
+
+Using `onRequest()` to create a HTTP Request function, which takes in two params.
+
+- `request` - gives you access to the properties of the HTTP request sent by the client
+- `response` - gives you a way to send a response back to the client
+
+In order to terminate the function properly, functions can be end with `response.send()`, `response.redirect()` and `response.end()`.
+
+```js
+exports.randomNumber = functions.https.onRequest((request, response) => {
+  const number = Math.round(Math.random() * 100);
+  response.send(number.toString());
+});
+```
+
+#### Callable
+
+Functions can be called directly from the app.
+
+Using `onCall()` to create a callable function, which takes in two params.
+
+- `data` - gives you access to the properties of the HTTP request sent by the client
+- `context`(optional) - gives you user auth information, e.g. `context.auth.uid`.
+
+```js
+exports.greetings = functions.https.onCall((data, context) => {
+  return `Hello! ${data.name}`;
+});
+```
+
+### Background Functions (Background Triggers)
+
+#### Database Events
+
+#### Auth Events
+
+#### Storage Events
+
+#### Analytics Events

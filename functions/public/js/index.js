@@ -10,3 +10,11 @@ requestModal.addEventListener('click', (e) => {
     requestModal.classList.remove('open');
   }
 });
+
+const btn = document.querySelector('.test-btn');
+btn.addEventListener('click', () => {
+  const greetings = firebase.functions().httpsCallable('greetings');
+  greetings({ name: 'Kimmy' }).then((result) => {
+    console.log(result.data);
+  });
+});
