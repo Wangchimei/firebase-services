@@ -1,0 +1,171 @@
+body {
+  font-family: 'Play', sans-serif;
+  margin: 0;
+  background: #fafafa;
+}
+
+body,
+h1,
+h2,
+p,
+a,
+input {
+  color: #555;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 56px;
+  background: royalblue;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .brand {
+  font-size: 30px;
+  color: white;
+  font-weight: 700;
+}
+
+nav ul {
+  display: flex;
+}
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all 0.5s ease;
+}
+
+nav ul li a {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  margin-left: 16px;
+  padding: 10px;
+  text-align: center;
+}
+
+nav ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: ' ';
+  color: transparent;
+  background: palevioletred;
+  height: 2px;
+}
+
+nav ul li a:hover {
+  color: #fff;
+}
+
+nav ul li a:hover:after {
+  width: 100%;
+}
+
+.content {
+  max-width: 800px;
+  margin: 40px auto 0;
+}
+
+.request-list li {
+  padding: 20px;
+  margin: 10px auto;
+  list-style-type: none;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.request-list .votes {
+  position: relative;
+  top: -6px;
+  z-index: 0;
+}
+
+.request-list .upvote {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.request-list .upvote:active {
+  color: royalblue;
+}
+
+/* modal styles */
+.modal {
+  width: 350px;
+  padding: 30px;
+  margin: 150px auto;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.new-request {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+}
+
+.new-request.open {
+  display: block;
+}
+
+/* form element styles */
+input {
+  display: block;
+  margin: 26px 0;
+  padding: 8px 2px;
+  border-width: 0 0 2px 0;
+  width: 100%;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 2px solid royalblue;
+}
+button {
+  margin-top: 10px;
+  padding: 12px 16px;
+  color: #fff;
+  background: palevioletred;
+  border-radius: 2px;
+  border: 0;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
