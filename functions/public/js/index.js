@@ -11,10 +11,12 @@ requestModal.addEventListener('click', (e) => {
   }
 });
 
-const btn = document.querySelector('.test-btn');
-btn.addEventListener('click', () => {
-  const greetings = firebase.functions().httpsCallable('greetings');
-  greetings({ name: 'Kimmy' }).then((result) => {
-    console.log(result.data);
-  });
-});
+// const btn = document.querySelector('.test-btn');
+// if (btn) {
+//   btn.addEventListener('click', () => {
+//     const greetings = firebase.functions().httpsCallable('greetings');
+//     greetings({ name: 'Kimmy' }).then((result) => {
+//       console.log(result.data);
+//     });
+//   });
+// }
